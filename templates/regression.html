@@ -8,7 +8,9 @@
         {% extends 'template.html' %}
         {% block content %}
             <h1> Regression </h1>
-  
+        {% for score in scores%}
+        {{score}}
+        {% endfor %}
           {% endblock %}
   </body>
 </html>

@@ -55,7 +55,7 @@ def home():
 
 @app.route("/regression")
 def regression():
-    return render_template("regression.html")
+    return render_template("regression.html", scores=scores)
 
 @app.route("/query", methods=['GET', 'POST'])
 def query():
