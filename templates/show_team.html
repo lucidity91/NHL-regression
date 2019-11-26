@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>NHL Regression</title>
+  </head>
+   <body>
+      {% extends 'template.html' %}
+      {% block content %}
+        <h1> View Database </h1>
+        <section class="container">
+            <div class="left_content">
+                <h3>Skaters</h3>
+                <table class="query_table">
+                        <thead>
+                           <tr>
+                              <th>Name</th>
+                              <th>Position</th>
+                           </tr>
+                        </thead>
+               
+                        <tbody>
+                            {% for skater in skaters %}
+                                <tr>
+                                    <td>{{ skater.full_name }}</td>
+                                    <td>{{ skater.pos }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                </table>
+            </div>
+            <div class="right_content">
+                <h3>Goalies</h3>
+                <table class="query_table">
+                        <thead>
+                           <tr>
+                              <th>Name</th>
+                              <th>Position</th>
+                           </tr>
+                        </thead>
+               
+                        <tbody>
+                            {% for goalie in goalies %}
+                                <tr>
+                                    <td>{{ goalie.full_name }}</td>
+                                    <td>{{ goalie.pos }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                </table>
+            </div>
+        </section>
+      {% endblock %}
+   </body>
+</html>

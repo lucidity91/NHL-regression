@@ -14,10 +14,11 @@ class ExtractData(object):
         divisions = menu.find_all('div', {'class': 'division'})
 
         for division in divisions:
+            div_name = division.find('strong').text
             urls = division.find_all('a', href=True)
             for url in urls:
                 full_url = urljoin(self.base, url.get('href'))
-                teams.append([url.text,full_url])
+                teams.append([url.text, div_name, full_url])
 
         return teams
 

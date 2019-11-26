@@ -3,6 +3,29 @@ body {
   margin: auto;
 }
 
+.container {
+    margin:0;
+    background-color: #fff;
+}
+
+.left_content {
+    float: left;
+    width: 50%;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.right_content {
+    float: left;
+    width: 50%;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.bottom_content {
+    height: 20%;
+}
+
 .logo {
     padding: 60px;
     text-align: center;

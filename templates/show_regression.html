@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>NHL Regression</title>
+  </head>
+   <body>
+      {% extends 'template.html' %}
+      {% block content %}
+      <section class="container">
+            <h1> Query </h1>
+
+            <h3>Results (<a href = "{{ url_for('regression') }}">New Comparison</a>)</h3>
+      <div class="left_content">
+      <table class="query_table">
+         <thead>
+            <tr>
+               <th>Name</th>
+               <th>Team</th>
+               <th>Position</th>
+            </tr>
+         </thead>
+         <tbody>
+               <tr>
+                  <td>{{ player1.full_name }}</td>
+                  <td>{{ player1.owner.team_name }}</td>
+                  <td>{{ player1.pos }}</td>
+               </tr>
+         </tbody>
+      </table>
+
+      <table class="query_table">
+            {% if player1.pos == "G" %}
+            <thead>
+               <tr>
+                  <th>Year</th>
+                  <th>Played</th>
+                  <th>Wins</th>
+                  <th>Losses</th>
+                  <th>GAA</th>
+                  <th>SV%</th>
+                  <th>Shutouts</th>
+               </tr>
+            </thead>
+   
+            <tbody>
+                {% for season in player1.stats %}
+                    <tr>
+                        <td>{{ season.year }}</td>
+                        <td>{{ season.played }}</td>
+                        <td>{{ season.wins }}</td>
+                        <td>{{ season.losses }}</td>
+                        <td>{{ season.gaa }}</td>
+                        <td>{{ season.sv }}</td> 
+                        <td>{{ season.shutouts }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+      </table>
+
+      <table class="query_table">
+            <h3>Regression Projection</h3>
+            <thead>
+                   <tr>
+                     <th>Year</th>
+                     <th>Played</th>
+                     <th>Wins</th>
+                     <th>Losses</th>
+                     <th>GAA</th>
+                     <th>SV%</th>
+                     <th>Shutouts</th>
+                   </tr>
+                </thead>
+       
+                <tbody>
+            <tr>
+                   {% for prediction in predictions1 %}
+                       <td>{{prediction}}</td>
+                   {% endfor %}
+            </tr>
+           </tbody>
+            {% else %}
+            <thead>
+                    <tr>
+                       <th>Year</th>
+                       <th>Played</th>
+                       <th>Goals</th>
+                       <th>Assists</th>
+                       <th>Points</th>
+                       <th>+/-</th>
+                       <th>PPP</th>
+                       <th>SHP</th>
+                       <th>GWG</th>
+                       <th>Blocks</th>
+                    </tr>
+                 </thead>
+        
+                 <tbody>
+                     {% for season in player1.stats %}
+                         <tr>
+                             <td>{{ season.year }}</td>
+                             <td>{{ season.played }}</td>
+                             <td>{{ season.goals }}</td>
+                             <td>{{ season.assists }}</td>
+                             <td>{{ season.goals + season.assists }}</td>
+                             <td>{{ season.plus_minus }}</td>
+                             <td>{{ season.ppp }}</td> 
+                             <td>{{ season.shp }}</td>
+                             <td>{{ season.gwg }}</td>
+                             <td>{{ season.blocks }}</td> 
+                         </tr>
+                     {% endfor %}
+                 </tbody>
+      </table>
+      <table class="query_table">
+                 <h3>Regression Projection</h3>
+                 <thead>
+                        <tr>
+                           <th>Year</th>
+                           <th>Played</th>
+                           <th>Goals</th>
+                           <th>Assists</th>
+                           <th>Points</th>
+                           <th>+/-</th>
+                           <th>PPP</th>
+                           <th>SHP</th>
+                           <th>GWG</th>
+                           <th>Blocks</th>
+                        </tr>
+                     </thead>
+            
+                     <tbody>
+                 <tr>
+                        {% for prediction in predictions1 %}
+                            <td>{{prediction}}</td>
+                        {% endfor %}
+                 </tr>
+                </tbody>
+            {% endif %}
+         </table>
+      </div>
+
+
+
+
+      <div class="right_content">
+         <table class="query_table">
+            <thead>
+               <tr>
+                  <th>Name</th>
+                  <th>Team</th>
+                  <th>Position</th>
+               </tr>
+            </thead>
+            <tbody>
+                  <tr>
+                     <td>{{ player2.full_name }}</td>
+                     <td>{{ player2.owner.team_name }}</td>
+                     <td>{{ player2.pos }}</td>
+                  </tr>
+            </tbody>
+         </table>
+   
+         <table class="query_table">
+               {% if player2.pos == "G" %}
+               <thead>
+                  <tr>
+                     <th>Year</th>
+                     <th>Played</th>
+                     <th>Wins</th>
+                     <th>Losses</th>
+                     <th>GAA</th>
+                     <th>SV%</th>
+                     <th>Shutouts</th>
+                  </tr>
+               </thead>
+      
+               <tbody>
+                   {% for season in player2.stats %}
+                       <tr>
+                           <td>{{ season.year }}</td>
+                           <td>{{ season.played }}</td>
+                           <td>{{ season.wins }}</td>
+                           <td>{{ season.losses }}</td>
+                           <td>{{ season.gaa }}</td>
+                           <td>{{ season.sv }}</td> 
+                           <td>{{ season.shutouts }}</td>
+                       </tr>
+                   {% endfor %}
+               </tbody>
+   
+         </table>
+   
+         <table class="query_table">
+               <h3>Regression Projection</h3>
+               <thead>
+                      <tr>
+                        <th>Year</th>
+                        <th>Played</th>
+                        <th>Wins</th>
+                        <th>Losses</th>
+                        <th>GAA</th>
+                        <th>SV%</th>
+                        <th>Shutouts</th>
+                      </tr>
+                   </thead>
+          
+                   <tbody>
+               <tr>
+                      {% for prediction in predictions2 %}
+                          <td>{{prediction}}</td>
+                      {% endfor %}
+               </tr>
+              </tbody>
+               {% else %}
+               <thead>
+                       <tr>
+                          <th>Year</th>
+                          <th>Played</th>
+                          <th>Goals</th>
+                          <th>Assists</th>
+                          <th>Points</th>
+                          <th>+/-</th>
+                          <th>PPP</th>
+                          <th>SHP</th>
+                          <th>GWG</th>
+                          <th>Blocks</th>
+                       </tr>
+                    </thead>
+           
+                    <tbody>
+                        {% for season in player2.stats %}
+                            <tr>
+                                <td>{{ season.year }}</td>
+                                <td>{{ season.played }}</td>
+                                <td>{{ season.goals }}</td>
+                                <td>{{ season.assists }}</td>
+                                <td>{{ season.goals + season.assists }}</td>
+                                <td>{{ season.plus_minus }}</td>
+                                <td>{{ season.ppp }}</td> 
+                                <td>{{ season.shp }}</td>
+                                <td>{{ season.gwg }}</td>
+                                <td>{{ season.blocks }}</td> 
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+         </table>
+         <table class="query_table">
+                    <h3>Regression Projection</h3>
+                    <thead>
+                           <tr>
+                              <th>Year</th>
+                              <th>Played</th>
+                              <th>Goals</th>
+                              <th>Assists</th>
+                              <th>Points</th>
+                              <th>+/-</th>
+                              <th>PPP</th>
+                              <th>SHP</th>
+                              <th>GWG</th>
+                              <th>Blocks</th>
+                           </tr>
+                        </thead>
+               
+                        <tbody>
+                    <tr>
+                           {% for prediction in predictions2 %}
+                               <td>{{prediction}}</td>
+                           {% endfor %}
+                    </tr>
+                   </tbody>
+               {% endif %}
+            </table>
+      </div>
+      <div class="bottom_content">
+            <h3>Direct Comparison (Player1 against Player2)</h3>
+            {% if ((player1.pos == 'G' and player2.pos != 'G') or (player1.pos != 'G' and player2.pos == 'G')) %}
+               <p>Comparison is not possible (Goalie vs. Skater)</p>
+            {% elif (player1.pos == 'G' and player2.pos == 'G') %}
+            <table class="query_table">
+                  <thead>
+                         <tr>
+                           <th>Played</th>
+                           <th>Wins</th>
+                           <th>Losses</th>
+                           <th>GAA</th>
+                           <th>SV%</th>
+                           <th>Shutouts</th>
+                         </tr>
+                      </thead>
+             
+                      <tbody>
+                  <tr>
+                        {% for i in diff %}
+                        <td>{{ i }}</td>
+                        {% endfor %}
+                  </tr>
+                 </tbody>
+            </table>
+            {% else %}
+            <table class="query_table">
+                  <thead>
+                         <tr>
+                              <th>Played</th>
+                              <th>Goals</th>
+                              <th>Assists</th>
+                              <th>Points</th>
+                              <th>+/-</th>
+                              <th>PPP</th>
+                              <th>SHP</th>
+                              <th>GWG</th>
+                              <th>Blocks</th>
+                         </tr>
+                      </thead>
+             
+                      <tbody>
+                  <tr>
+                        {% for i in diff %}
+                        <td>{{ i }}</td>
+                        {% endfor %}
+                  </tr>
+                 </tbody>
+            </table>
+            {% endif %}
+      </div>
+   </section>
+
+      {% endblock %}
+   </body>
+</html>

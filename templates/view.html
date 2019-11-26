@@ -7,10 +7,14 @@
    <body>
       {% extends 'template.html' %}
       {% block content %}
-        <h1> Query </h1>
+        <h1> View Database </h1>
         <form action="{{ request.path }}" method="post">
-            <label for="name">Full Name (ie. Johnny Gaudreau)</label><br>
-            <input type="text" name="name" placeholder="Name"/><br>
+            <select type="text" name="team">
+               <option disabled selected>Select Team</option>
+               {% for team in teams %}
+               <option type="text" name={{team.team_name}}>{{team.team_name}}</option>
+               {% endfor %}
+            </select>
             <input type="submit" value="Submit"/>
          </form>
       {% endblock %}

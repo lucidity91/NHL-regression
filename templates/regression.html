@@ -4,13 +4,32 @@
     <meta charset="utf-8">
     <title>NHL Regression</title>
   </head>
-  <body>
-        {% extends 'template.html' %}
-        {% block content %}
-            <h1> Regression </h1>
-        {% for score in scores%}
-        {{score}}
-        {% endfor %}
-          {% endblock %}
-  </body>
+   <body>
+      {% extends 'template.html' %}
+      {% block content %}
+        <h1> Regression Analysis </h1>
+        <form action="{{ request.path }}" method="post">
+            <select type="text" name="name1">
+                <option disabled selected>Player 1</option>
+                {% for skater in skaters %}
+                <option type="text" name={{skater.full_name}}>{{skater.full_name}}</option>
+                {% endfor %}
+                {% for goalie in goalies %}
+                <option type="text" name={{goalie.full_name}}>{{goalie.full_name}}</option>
+                {% endfor %}
+            </select><br>
+            <select type="text" name="name2">
+                <option disabled selected>Player 2</option>
+                {% for skater in skaters %}
+                <option type="text" name={{skater.full_name}}>{{skater.full_name}}</option>
+                {% endfor %}
+                {% for goalie in goalies %}
+                <option type="text" name={{goalie.full_name}}>{{goalie.full_name}}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+            <input type="submit" value="Submit"/>
+         </form>
+      {% endblock %}
+   </body>
 </html>
