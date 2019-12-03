@@ -1,8 +1,13 @@
+# Eric Mu
+# CPSC 4660 Final Project
+# File: extract.py
+# Purpose: modules used for extracting player data from hockey-reference
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse, urljoin
 
 class ExtractData(object):
+    # Get URL and team info for each team
     def getTeams(self, link):
         url = requests.get(link)
         parsed_uri = urlparse(link)
@@ -22,6 +27,7 @@ class ExtractData(object):
 
         return teams
 
+    # For each team, retrieve general player info goalies & skaters
     def getPlayers(self, link):
         url = requests.get(link)
         parsed_uri = urlparse(link)
@@ -48,6 +54,7 @@ class ExtractData(object):
 
         return [skaters, goalies]
     
+    # Pull stats for each player
     def getStats(self, player, years):
         url = requests.get(player[3])
         parsed_uri = urlparse(player[3])
